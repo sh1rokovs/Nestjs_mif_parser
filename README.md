@@ -30,5 +30,6 @@ $ npm run start:dev
 ## API path
 
 ```bash
-localhost:5000/api/parser
+localhost:5000/api/parse (POST-method)
 ```
+POST запрос, на входе принимается
