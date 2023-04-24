@@ -7,7 +7,7 @@ export class AppController {
 
     constructor(private appService: AppService) {}
 
-    @Post('/parse_v1')
+    @Post('/parse')
     @UseInterceptors(FilesInterceptor('file'))
     postFile(@UploadedFiles() file: Express.Multer.File) {
         return this.appService.postFile(file[0].buffer.toString())
