@@ -15,6 +15,7 @@ export class AppService {
             Symbol = "SYMBOL"
         }
 
+        // no ts way
         let returnObj = {
             "result": {
                 "bounds": [],
