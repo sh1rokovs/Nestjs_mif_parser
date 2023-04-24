@@ -25,7 +25,9 @@
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-<img src="https://i.ibb.co/zRWhv7r/2023-04-24-004023890.png" alt="Nest Logo" />
+<div align="center">
+  <img src="https://i.ibb.co/zRWhv7r/2023-04-24-004023890.png" alt="Nest Logo" />
+</div>
 ## Installation
 
 ```bash
