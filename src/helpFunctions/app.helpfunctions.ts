@@ -1,3 +1,4 @@
+// функция заполнения объекта
 export function fillObj(obj: any, fun: string, ...args: RegExpMatchArray[]): void{
     const elements = obj.result.elements
     
