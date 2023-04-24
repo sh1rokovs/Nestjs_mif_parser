@@ -29,8 +29,9 @@ $ npm run start:dev
 ```bash
 localhost:5000/api/parse (POST-method)
 ```
-POST запрос, на входе подается ключ "file" со значением файла "test.mif; os.mif и др."<br>
+POST запрос, в теле запроса подается ключ "file" со значением файла "test.mif; os.mif и др."<br>
 Пример:
 <div align="center">
   <img src="https://i.ibb.co/zRWhv7r/2023-04-24-004023890.png" alt="Nest Logo" />
 </div>
+На выходе объект типа JSON.
