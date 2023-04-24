@@ -11,9 +11,6 @@
 ##  Описание
 
 Парсер mif файлов.
-<div align="center">
-  <img src="https://i.ibb.co/zRWhv7r/2023-04-24-004023890.png" alt="Nest Logo" />
-</div>
 
 ## Установка зависимостей
 
@@ -32,4 +29,8 @@ $ npm run start:dev
 ```bash
 localhost:5000/api/parse (POST-method)
 ```
-POST запрос, на входе принимается
+POST запрос, на входе подается ключ "file" со значением файла "test.mif; os.mif и др."
+Пример:
+<div align="center">
+  <img src="https://i.ibb.co/zRWhv7r/2023-04-24-004023890.png" alt="Nest Logo" />
+</div>
