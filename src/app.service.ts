@@ -46,6 +46,7 @@ export class AppService {
         // Parse Data
         const rePen: RegExp = /PEN\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})/i
 
+        // входящий файл проверяется кусками
         while(true) {
             const numberLine: number = file.match(new RegExp('\\n', 'i')).index + 1
             const funMatch: RegExpMatchArray = file.substring(0, numberLine).match(/^LINE|^PLINE|^POINT|^REGION|^TEXT|^SYMBOL/i)
