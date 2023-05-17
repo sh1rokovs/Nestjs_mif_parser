@@ -11,16 +11,16 @@
 
 Требования: Node.js, Nest.js, RegExp
 
-## Установка зависимостей
+## Начальный запуск
 
 ```bash
-$ npm install
+install_and_start.sh
 ```
 
-## Запуск приложения 
+## Последующий запуск запуск
 
 ```bash
-$ npm run start:dev
+start.sh
 ```
 
 ## API path
@@ -28,6 +28,13 @@ $ npm run start:dev
 ```bash
 localhost:5000/api/parse (POST-method)
 ```
+
+Swagger
+
+```bash
+localhost:5000/api/swagger
+```
+
 POST запрос, в теле запроса подается ключ "file" со значением файла "test.mif; os.mif и др."<br>
 Пример:
 <div align="center">
