@@ -17,13 +17,15 @@
 install_and_start.sh
 ```
 
-## Последующий запуск запуск
+## Последующий запуск
 
 ```bash
 start.sh
 ```
 
 ## API path
+
+Парсер
 
 ```bash
 localhost:5000/api/parse (POST-method)
