@@ -1,21 +1,18 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import { HelpFunctionService } from 'libs/parser/src';
+import { HelpFunctionService } from 'libs/help-function/src/help-function.service';
 import { ReturnObject } from './interfaces/return.interface';
 
 @Injectable()
 export class ParserService {
-  constructor(
-    private readonly helpFunction: HelpFunctionService,
-    @Inject('NotificationInterface')
-    private returnObject: ReturnObject,
-  ) {}
+  constructor(private readonly helpFunction: HelpFunctionService) {}
 
   postFile(file: string) {
     file = file.toLowerCase();
 
     const fileLength: number = file.length;
-    this.returnObject = {
+
+    const returnObject: ReturnObject = {
       result: {
         bounds: [],
         elements: [],
@@ -34,7 +31,7 @@ export class ParserService {
       Symbol = 'symbol',
     }
 
-    this.returnObject.result.bounds.push(
+    returnObject.result.bounds.push(
       {
         x: Number(bounds[1]),
         y: Number(bounds[2]),
@@ -75,7 +72,7 @@ export class ParserService {
               const pen: RegExpMatchArray = file.match(rePen);
 
               this.helpFunction.fillObj(
-                this.returnObject,
+                returnObject,
                 'pline multiple',
                 sections,
                 sString,
@@ -103,7 +100,7 @@ export class ParserService {
               }
 
               this.helpFunction.fillObj(
-                this.returnObject,
+                returnObject,
                 ParseType.Pline,
                 coords,
                 pen,
@@ -120,7 +117,7 @@ export class ParserService {
             const pen: RegExpMatchArray = file.match(rePen);
 
             this.helpFunction.fillObj(
-              this.returnObject,
+              returnObject,
               ParseType.Line,
               coords,
               pen,
@@ -135,11 +132,7 @@ export class ParserService {
               /point\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})/i,
             );
 
-            this.helpFunction.fillObj(
-              this.returnObject,
-              ParseType.Point,
-              point,
-            );
+            this.helpFunction.fillObj(returnObject, ParseType.Point, point);
 
             break;
           }
@@ -150,11 +143,7 @@ export class ParserService {
               /symbol\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})/i,
             );
 
-            this.helpFunction.fillObj(
-              this.returnObject,
-              ParseType.Symbol,
-              symbol,
-            );
+            this.helpFunction.fillObj(returnObject, ParseType.Symbol, symbol);
 
             break;
           }
@@ -171,7 +160,7 @@ export class ParserService {
             );
 
             this.helpFunction.fillObj(
-              this.returnObject,
+              returnObject,
               ParseType.Region,
               coords,
               pen,
@@ -197,7 +186,7 @@ export class ParserService {
             );
 
             this.helpFunction.fillObj(
-              this.returnObject,
+              returnObject,
               ParseType.Text,
               textBase,
               angle,
@@ -214,6 +203,6 @@ export class ParserService {
       }
     }
 
-    return this.returnObject;
+    return returnObject;
   }
 }

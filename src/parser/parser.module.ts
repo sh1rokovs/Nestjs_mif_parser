@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 
-import { HelpFunctionService } from 'libs/parser/src';
+import { HelpFunctionModule } from 'libs/help-function/src/help-function.module';
 import { ParserController } from './parser.controller';
 import { ParserService } from './parser.service';
 
@@ -13,6 +13,6 @@ import { ParserService } from './parser.service';
       useClass: ParserService,
     },
   ],
-  imports: [HelpFunctionService],
+  imports: [HelpFunctionModule],
 })
 export class ParserModule {}
