@@ -6,7 +6,13 @@ import { ParserService } from './parser.service';
 
 @Module({
   controllers: [ParserController],
-  providers: [ParserService],
+  providers: [
+    ParserService,
+    {
+      provide: 'ReturnObject',
+      useClass: ParserService,
+    },
+  ],
   imports: [HelpFunctionService],
 })
 export class ParserModule {}

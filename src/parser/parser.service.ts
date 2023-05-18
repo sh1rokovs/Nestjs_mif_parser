@@ -1,41 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+
 import { HelpFunctionService } from 'libs/parser/src';
+import { ReturnObject } from './interfaces/return.interface';
 
 @Injectable()
 export class ParserService {
-  constructor(private readonly helpFunction: HelpFunctionService) {}
+  constructor(
+    private readonly helpFunction: HelpFunctionService,
+    @Inject('NotificationInterface')
+    private returnObject: ReturnObject,
+  ) {}
 
   postFile(file: string) {
     file = file.toLowerCase();
 
     const fileLength: number = file.length;
-
-    interface ReturnObj {
-      result: Result;
-      errors: string[];
-    }
-
-    interface Result {
-      bounds: string[];
-      elements: string[];
-    }
-
-    const returnObj: ReturnObj = {
+    this.returnObject = {
       result: {
         bounds: [],
         elements: [],
       },
       errors: [],
     };
-
-    // const returnObj = {
-    //   result: {
-    //     bounds: [],
-    //     elements: [],
-    //   },
-    //   errors: [],
-    // };
-    const boundsCoord = returnObj.result.bounds;
     const bounds: RegExpMatchArray = file.match(
       /bounds\D{1,}([\w.]+)\D{1,}([\w.]*)\D{1,}([\w.]*)\D{1,}([\w.]*)/i,
     );
@@ -48,7 +34,7 @@ export class ParserService {
       Symbol = 'symbol',
     }
 
-    boundsCoord.push(
+    this.returnObject.result.bounds.push(
       {
         x: Number(bounds[1]),
         y: Number(bounds[2]),
@@ -58,7 +44,6 @@ export class ParserService {
         y: Number(bounds[4]),
       },
     );
-
     // Exclude Header
     const re = /data/g;
 
@@ -90,7 +75,7 @@ export class ParserService {
               const pen: RegExpMatchArray = file.match(rePen);
 
               this.helpFunction.fillObj(
-                returnObj,
+                this.returnObject,
                 'pline multiple',
                 sections,
                 sString,
@@ -118,7 +103,7 @@ export class ParserService {
               }
 
               this.helpFunction.fillObj(
-                returnObj,
+                this.returnObject,
                 ParseType.Pline,
                 coords,
                 pen,
@@ -134,7 +119,12 @@ export class ParserService {
             );
             const pen: RegExpMatchArray = file.match(rePen);
 
-            this.helpFunction.fillObj(returnObj, ParseType.Line, coords, pen);
+            this.helpFunction.fillObj(
+              this.returnObject,
+              ParseType.Line,
+              coords,
+              pen,
+            );
 
             break;
           }
@@ -145,7 +135,11 @@ export class ParserService {
               /point\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})/i,
             );
 
-            this.helpFunction.fillObj(returnObj, ParseType.Point, point);
+            this.helpFunction.fillObj(
+              this.returnObject,
+              ParseType.Point,
+              point,
+            );
 
             break;
           }
@@ -156,7 +150,11 @@ export class ParserService {
               /symbol\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})\D{1,}([\d.]{1,})/i,
             );
 
-            this.helpFunction.fillObj(returnObj, ParseType.Symbol, symbol);
+            this.helpFunction.fillObj(
+              this.returnObject,
+              ParseType.Symbol,
+              symbol,
+            );
 
             break;
           }
@@ -173,7 +171,7 @@ export class ParserService {
             );
 
             this.helpFunction.fillObj(
-              returnObj,
+              this.returnObject,
               ParseType.Region,
               coords,
               pen,
@@ -199,7 +197,7 @@ export class ParserService {
             );
 
             this.helpFunction.fillObj(
-              returnObj,
+              this.returnObject,
               ParseType.Text,
               textBase,
               angle,
@@ -216,6 +214,6 @@ export class ParserService {
       }
     }
 
-    return returnObj;
+    return this.returnObject;
   }
 }
