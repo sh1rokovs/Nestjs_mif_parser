@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { HelpFunctionService } from 'libs/help-function/src/help-function.service';
-import { ReturnObject } from './interfaces/return.interface';
+import { ReturnObject } from 'src/interfaces/interfaces/return.interface';
 
 @Injectable()
 export class ParserService {
@@ -89,15 +89,20 @@ export class ParserService {
                   `pline(.*\\r\\n){2}` + '(.*\\r\\n)'.repeat(countLines - 1),
                   'i',
                 ),
-              );
-              if (coords == null) {
-                const coords: RegExpMatchArray = file.match(
-                  new RegExp(
-                    `pline(.*\\n){2}` + '(.*\\n)'.repeat(countLines - 1),
-                    'i',
-                  ),
-                );
-              }
+              )
+                ? file.match(
+                    new RegExp(
+                      `pline(.*\\r\\n){2}` +
+                        '(.*\\r\\n)'.repeat(countLines - 1),
+                      'i',
+                    ),
+                  )
+                : file.match(
+                    new RegExp(
+                      `pline(.*\\n){2}` + '(.*\\n)'.repeat(countLines - 1),
+                      'i',
+                    ),
+                  );
 
               this.helpFunction.fillObj(
                 returnObject,

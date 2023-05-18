@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { ReturnObject } from 'src/parser/interfaces/return.interface';
+import { ReturnObject } from 'src/interfaces/interfaces/return.interface';
 
 @Injectable()
 export class HelpFunctionService {
