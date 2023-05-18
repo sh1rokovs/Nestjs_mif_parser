@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { HelpFunctionService } from 'libs/help-function/src/help-function.service';
-import { ReturnObject } from 'src/interfaces/interfaces/return.interface';
+import { ReturnObject } from 'src/interfaces/return.interface';
 
 @Injectable()
 export class ParserService {
